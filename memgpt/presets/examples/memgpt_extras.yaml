@@ -13,3 +13,12 @@ functions:
   - "append_to_text_file"
   # internet access
   - "http_request"
+  # extras for file system access
+  - "list_directory_contents"
+  - "create_directory"
+  - "delete_directory"
+  - "create_file"
+  - "delete_file"
+  - "is_directory"
+  - "is_file"
+  - "does_path_exist"
