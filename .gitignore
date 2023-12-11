@@ -82,3 +82,4 @@ dmypy.json
 
 # MemGPT config files
 configs/
+.idea/
