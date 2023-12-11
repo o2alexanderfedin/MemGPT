@@ -112,3 +112,23 @@ def does_path_exist(self, path: str) -> bool:
         bool: True if the path exists, False otherwise.
     """
     return os.path.exists(path)
+
+
+def get_file_size(path: str) -> Optional[int]:
+    """
+    Get the size of a file in bytes.
+
+    Args:
+        path (str): The file path to get the size of.
+
+    Returns:
+        Optional[int]: The size of the file in bytes, or None if the file does not exist or is a directory.
+    """
+    try:
+        if os.path.isfile(path):
+            return os.path.getsize(path)
+        else:
+            return None
+    except OSError as e:
+        print(f"Error: {e}")
+        return None
