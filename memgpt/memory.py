@@ -12,9 +12,9 @@ from .openai_tools import (
     get_embedding_with_backoff,
     completions_with_backoff as create,
 )
+from llama_index.indices.empty.base import EmptyIndex
 from llama_index import (
     VectorStoreIndex,
-    EmptyIndex,
     get_response_synthesizer,
     load_index_from_storage,
     StorageContext,
