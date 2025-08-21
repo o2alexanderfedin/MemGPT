@@ -8,9 +8,15 @@ HOST = os.getenv("OPENAI_API_BASE")
 HOST_TYPE = os.getenv("BACKEND_TYPE")  # default None == ChatCompletion
 
 import openai
+from openai import AzureOpenAI
+
+client = AzureOpenAI(api_key=azure_openai_key,
+azure_endpoint=azure_openai_endpoint,
+api_version=azure_openai_version)
 
 if HOST is not None:
-    openai.api_base = HOST
+    # TODO: The 'openai.api_base' option isn't read in the client API. You will need to pass it when you instantiate the client, e.g. 'OpenAI(api_base=HOST)'
+    # openai.api_base = HOST
 
 
 def retry_with_exponential_backoff(
@@ -73,7 +79,7 @@ def completions_with_backoff(**kwargs):
                 kwargs.pop("model")
         if "context_window" in kwargs:
             kwargs.pop("context_window")
-        return openai.ChatCompletion.create(**kwargs)
+        return client.chat.completions.create(**kwargs)
 
 
 @retry_with_exponential_backoff
@@ -85,7 +91,7 @@ def create_embedding_with_backoff(**kwargs):
         else:
             kwargs["engine"] = kwargs["model"]
             kwargs.pop("model")
-    return openai.Embedding.create(**kwargs)
+    return client.embeddings.create(**kwargs)
 
 
 def get_embedding_with_backoff(text, model="text-embedding-ada-002"):
@@ -134,10 +140,6 @@ def configure_azure_support():
         print(f"Error: missing Azure OpenAI environment variables. Please see README section on Azure.")
         return
 
-    openai.api_type = "azure"
-    openai.api_key = azure_openai_key
-    openai.api_base = azure_openai_endpoint
-    openai.api_version = azure_openai_version
     # deployment gets passed into chatcompletion
 
 

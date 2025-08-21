@@ -58,10 +58,6 @@ def configure():
                 use_azure_deployment_ids = True
 
             # configure openai
-            openai.api_type = "azure"
-            openai.api_key = azure_key
-            openai.api_base = azure_endpoint
-            openai.api_version = azure_version
         else:
             print("Missing enviornment variables for Azure. Please set then run `memgpt configure` again.")
             # TODO: allow for manual setting

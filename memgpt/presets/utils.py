@@ -22,8 +22,10 @@ def is_valid_yaml_format(yaml_data, function_set):
         raise ValueError("'functions' should be a list of strings.")
 
     # Check if all functions in YAML are part of function_set
-    if not set(yaml_data["functions"]).issubset(function_set):
-        raise ValueError("Some functions in YAML are not part of the provided function set.")
+    requested_functions = set(yaml_data["functions"])
+    if not requested_functions.issubset(function_set):
+        missing_functions = ", ".join(requested_functions.difference(function_set))
+        raise ValueError(f"Some functions in YAML are not part of the provided function set: {missing_functions}")
 
     # If all checks pass
     return True

@@ -9,7 +9,7 @@ import os
 import tiktoken
 import glob
 import sqlite3
-import fitz
+# import fitz
 from tqdm import tqdm
 import typer
 import memgpt
